@@ -10,6 +10,14 @@ from collections import deque
 import cv2 as cv
 import numpy as np
 import mediapipe as mp
+import os 
+import time
+from datetime import datetime 
+from serial import Serial 
+
+import serial
+
+s = serial.Serial(port = 'COM3', baudrate=19200, bytesize = 8, timeout = 1)
 
 from helper import *
 #from utils import CvFpsCalc
@@ -30,6 +38,7 @@ def main():
     global previous_action_id
     global current_action_id
     global auto_mode
+    global s
     cap_device = 0
     cap_width = cam_width
     cap_height = cam_height
@@ -138,7 +147,8 @@ def main():
 
 
                 ## Send to PI
-
+                s.write(str.encode(str(current_action_id)+'.'))
+                print(current_action_id)
 
 
                 ##
