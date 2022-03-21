@@ -2,9 +2,9 @@ from random import randint
 import sys, traceback, threading, socket, os
 
 
-# SERVER_PORT = 10
+SERVER_PORT = 10
 rtspSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-LOCAL_HOST, PORT = ("127.0.0.1", 10)\
+LOCAL_HOST, PORT = ("127.0.0.1", SERVER_PORT)
 
 try:
 	rtspSocket.bind((LOCAL_HOST, PORT))
