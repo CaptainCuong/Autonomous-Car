@@ -10,10 +10,10 @@ def select_mode(key, mode):
         number = key - 48
     if key == 110:  # n
         mode = 0
-    if key == 107:  # k
+    if key == 108 or key == 97:
         mode = 1
-    if key == 104:  # h
-        mode = 2
+    #if key == 104:  # h
+    #    mode = 1
     return number, mode
 
 def calc_bounding_rect(image, landmarks):
@@ -313,6 +313,15 @@ def draw_info_text(image, brect, handedness, hand_sign_text,
 
     return image
 
+def draw_label(image, brect, handedness, hand_sign_text, current_mode):
+    info_text = handedness.classification[0].label[0:]
+    if hand_sign_text != "":
+        info_text = info_text + ':' + hand_sign_text
+    cv.putText(image, info_text, (brect[0] + 5, brect[1] - 4),
+               cv.FONT_HERSHEY_DUPLEX, 0.6, (0, 0, 0), 1, cv.LINE_AA)
+    #cv.putText(image, "Current Mode: " + current_mode, (10,80), cv.FONT_HERSHEY_DUPLEX, 0.5, (0, 0, 0), 1, cv.LINE_AA)
+
+    return image
 def draw_point_history(image, point_history):
     for index, point in enumerate(point_history):
         if point[0] != 0 and point[1] != 0:
@@ -391,3 +400,25 @@ class PointHistoryClassifier(object):
             result_index = self.invalid_value
 
         return result_index
+
+
+
+
+
+
+def draw_info(image, mode, number = 0):
+    #cv.putText(image, "FPS:" + str(fps), (10, 30), cv.FONT_HERSHEY_SIMPLEX,
+               #1.0, (0, 0, 0), 4, cv.LINE_AA)
+    #cv.putText(image, "FPS:" + str(fps), (10, 30), cv.FONT_HERSHEY_SIMPLEX,
+               #1.0, (255, 255, 255), 2, cv.LINE_AA)
+
+    mode_string = ['Logging Landmarks', 'Logging Point History']
+    if 1 <= mode <= 2:
+        cv.putText(image, "MODE:" + mode_string[mode - 1], (10, 90),
+                   cv.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 1,
+                   cv.LINE_AA)
+        if 0 <= number <= 9:
+            cv.putText(image, "NUM:" + str(number), (10, 110),
+                       cv.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 1,
+                       cv.LINE_AA)
+    return image
