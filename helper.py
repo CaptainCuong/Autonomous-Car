@@ -314,7 +314,8 @@ def draw_info_text(image, brect, handedness, hand_sign_text,
     return image
 
 def draw_label(image, brect, handedness, hand_sign_text, current_mode):
-    info_text = handedness.classification[0].label[0:]
+    #info_text = handedness.classification[0].label[0:]
+    info_text = handedness.classification[0].label
     if hand_sign_text != "":
         info_text = info_text + ':' + hand_sign_text
     cv.putText(image, info_text, (brect[0] + 5, brect[1] - 4),
