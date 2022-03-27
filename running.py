@@ -19,6 +19,7 @@ import socket, threading, sys, traceback, os, time
 
 import serial
 
+#############################################
 SERIAL = False
 s = None
 if SERIAL:
@@ -38,7 +39,7 @@ if LAN:
     except:
         print('Can not open port')
 
-
+##########################################
 from helper import *
 #from utils import CvFpsCalc
 #from model import KeyPointClassifier
